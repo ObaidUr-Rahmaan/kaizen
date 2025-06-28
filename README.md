@@ -1,4 +1,4 @@
-# React Starter Kit (RSK)
+# Kaizen
 
 A modern, production-ready SaaS starter template for building full-stack React applications using React Router v7, Convex, Clerk, and Polar.sh. Ready for Vercel deployment with built-in AI chat capabilities.
 
@@ -55,7 +55,7 @@ A modern, production-ready SaaS starter template for building full-stack React a
 1. Clone the repository and install dependencies:
 
 ```bash
-npm install
+npm install --legacy-peer-deps
 ```
 
 2. Copy the environment file and configure your credentials:
