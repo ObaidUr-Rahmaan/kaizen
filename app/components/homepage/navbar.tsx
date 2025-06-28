@@ -1,8 +1,8 @@
 "use client";
 import { UserButton } from "@clerk/react-router";
-import { Github, Menu, X } from "lucide-react";
+import { Github, Menu, X, Loader2 } from "lucide-react";
 import React, { useCallback } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { Button } from "~/components/ui/button";
 import { cn } from "~/lib/utils";
 
@@ -20,6 +20,8 @@ export const Navbar = ({
 }) => {
   const [menuState, setMenuState] = React.useState(false);
   const [isScrolled, setIsScrolled] = React.useState(false);
+  const [isDashboardLoading, setIsDashboardLoading] = React.useState(false);
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -50,6 +52,11 @@ export const Navbar = ({
   const dashboardText = !loaderData?.isSignedIn 
     ? "Get Started (Demo)"
     : loaderData.hasActiveSubscription ? "Dashboard" : "Subscribe";
+
+  const handleDashboardClick = useCallback(() => {
+    setIsDashboardLoading(true);
+    navigate(dashboardLink);
+  }, [navigate, dashboardLink]);
   return (
     <header>
       <nav
@@ -125,10 +132,19 @@ export const Navbar = ({
                 </Link>
                 {loaderData?.isSignedIn ? (
                   <div className="flex items-center gap-3">
-                    <Button asChild size="sm">
-                      <Link to={dashboardLink} prefetch="viewport">
+                    <Button 
+                      size="sm" 
+                      onClick={handleDashboardClick}
+                      disabled={isDashboardLoading}
+                    >
+                      {isDashboardLoading ? (
+                        <>
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          Loading...
+                        </>
+                      ) : (
                         <span>{dashboardText}</span>
-                      </Link>
+                      )}
                     </Button>
                     <UserButton />
                   </div>
@@ -154,13 +170,19 @@ export const Navbar = ({
                       </Link>
                     </Button>
                     <Button
-                      asChild
                       size="sm"
                       className={cn(isScrolled ? "lg:inline-flex" : "hidden")}
+                      onClick={handleDashboardClick}
+                      disabled={isDashboardLoading}
                     >
-                      <Link to="/sign-up" prefetch="viewport">
+                      {isDashboardLoading ? (
+                        <>
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          Loading...
+                        </>
+                      ) : (
                         <span>{dashboardText}</span>
-                      </Link>
+                      )}
                     </Button>
                   </>
                 )}
