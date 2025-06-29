@@ -1,5 +1,6 @@
 import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
+import { internal } from "./_generated/api";
 
 export const findUserByToken = query({
   args: { tokenIdentifier: v.string() },
@@ -58,6 +59,11 @@ export const upsertUser = mutation({
       name: identity.name,
       email: identity.email,
       tokenIdentifier: identity.subject,
+    });
+
+    await ctx.scheduler.runAfter(0, internal.sendEmails.sendWelcomeEmail, {
+      email: identity.email!,
+      name: identity.name!,
     });
 
     return await ctx.db.get(userId);

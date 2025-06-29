@@ -13,6 +13,7 @@
     "@ai-sdk/react": "^1.2.12",
     "@clerk/react-router": "^1.4.8",
     "@convex-dev/polar": "^0.4.5",
+    "@convex-dev/resend": "^0.1.2-beta.2",
     "@polar-sh/sdk": "^0.32.16",
     "@radix-ui/react-avatar": "^1.1.10",
     "@radix-ui/react-checkbox": "^1.3.2",

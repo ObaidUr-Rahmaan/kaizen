@@ -3,6 +3,7 @@ import { paymentWebhook } from "./subscriptions";
 import { httpAction } from "./_generated/server";
 import { openai } from "@ai-sdk/openai";
 import { streamText } from "ai";
+import { resend } from "./sendEmails";
 
 export const chat = httpAction(async (ctx, req) => {
   // Extract the `messages` from the body of the request
@@ -96,6 +97,14 @@ http.route({
   path: "/payments/webhook",
   method: "POST",
   handler: paymentWebhook,
+});
+
+http.route({
+  path: "/resend-webhook",
+  method: "POST",
+  handler: httpAction(async (ctx, req) => {
+    return await resend.handleResendEventWebhook(ctx, req);
+  }),
 });
 
 // Log that routes are configured
