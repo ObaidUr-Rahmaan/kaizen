@@ -93,7 +93,6 @@ RESEND_API_KEY="re_..."
 ```env
 # Convex (client-side URLs)
 VITE_CONVEX_URL="https://your-deployment.convex.cloud"
-VITE_CONVEX_SITE_URL="https://your-deployment.convex.site"
 
 # Clerk
 VITE_CLERK_PUBLISHABLE_KEY="pk_live_..."  # For client-side usage
