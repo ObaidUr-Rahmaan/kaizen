@@ -233,7 +233,7 @@ export const checkUserSubscriptionStatusByClerkId = query({
 
     const subscription = await ctx.db
       .query("subscriptions")
-      .withIndex("userId", (q) => q.eq("userId", user.tokenIdentifier))
+      .withIndex("userId", (q) => q.eq("userId", user?.tokenIdentifier))
       .first();
 
     const hasActiveSubscription = subscription?.status === "active";
